@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -100,6 +102,35 @@ public class ExchangeRateQueryServiceImpl implements ExchangeRateQueryService {
 		result.setRateBySecond(rate1 / rate2);
 		
 		return result;
+	}
+	
+	@Override
+	public ExchangeRateTable changeBase(ExchangeRateTable oldTable,
+			String newBase) {
+		
+		ExchangeRateTable newTable = new ExchangeRateTable();		
+		newTable.setBase(newBase);
+		HashMap<String, Double> newRatesMap = new HashMap<String, Double>();	
+		
+		String[] selectedCurrencyList = exchangeRateConfig.getSelectedCurrency().split("\\|");
+		
+		Map<String, Double> oldMap = oldTable.getRates();
+		
+		double divider = 1;
+		
+		if(!"EUR".equals(newBase)) {
+			divider = oldTable.getRates().get(newBase);
+			newRatesMap.put("EUR", (double)1 / divider);
+		}
+		
+		for(String cur : selectedCurrencyList) {			
+			if(!cur.equals(newBase) && oldMap.containsKey(cur)) {
+				newRatesMap.put(cur, oldMap.get(cur) / divider);
+			}
+		}
+		
+		newTable.setRates(newRatesMap);
+		return newTable;
 	}
 
 }

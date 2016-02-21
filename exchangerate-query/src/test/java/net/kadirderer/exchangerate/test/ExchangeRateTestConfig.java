@@ -9,7 +9,7 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
 @Configuration
 @ComponentScan(basePackages = { "net.kadirderer.exchangerate.query"})
-@PropertySource(value = "classpath:app-test-config.properties")
+@PropertySource(value = "classpath:exchange-test-config.properties")
 public class ExchangeRateTestConfig {
 	
 	@Value("${exchangerate.query.url}")

@@ -8,7 +8,7 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
 @Configuration
 @ComponentScan(basePackages = { "net.kadirderer.exchangerate.query"})
-@PropertySource(value = "classpath:app-config.properties")
+@PropertySource(value = "classpath:exchange-config.properties")
 public class ExchangeRateConfig {
 	
 	@Bean

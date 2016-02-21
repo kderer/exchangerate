@@ -11,5 +11,7 @@ public interface ExchangeRateQueryService {
 	public ExchangeRateTable getExchangeRateTable(String jsonString);
 	
 	public ExchangeRateQueryResult qetExchangeRates(ExchangeRateQuery obj, String jsonString);
+	
+	public ExchangeRateTable changeBase(ExchangeRateTable oldTable, String newBase);
 
 }
